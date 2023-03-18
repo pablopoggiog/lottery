@@ -17,4 +17,8 @@ contract Lottery {
         require(msg.value >= 0.01 ether);
         players.push(payable(msg.sender));
     }
+
+    function getPlayers() public view returns (address payable[] memory) {
+        return players;
+    }
 }
