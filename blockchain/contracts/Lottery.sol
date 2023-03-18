@@ -13,8 +13,7 @@ contract Lottery {
     }
 
     function enter() public payable {
-        // verify it meets the minimum threshold
-        require(msg.value >= 0.01 ether);
+        require(msg.value >= 0.01 ether, "Min amount is 0.01 ether");
         players.push(payable(msg.sender));
     }
 
