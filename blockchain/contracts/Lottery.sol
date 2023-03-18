@@ -11,4 +11,10 @@ contract Lottery {
         owner = msg.sender;
         lotteryId = 0;
     }
+
+    function enter() public payable {
+        // verify it meets the minimum threshold
+        require(msg.value >= 0.01 ether);
+        players.push(payable(msg.sender));
+    }
 }
