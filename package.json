@@ -19,8 +19,11 @@
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@types/node": "^18.15.3",
+    "@types/react": "^18.0.28",
     "eslint": "8.21.0",
     "eslint-config-next": "12.2.5",
-    "hardhat": "^2.13.0"
+    "hardhat": "^2.13.0",
+    "typescript": "^5.0.2"
   }
 }
