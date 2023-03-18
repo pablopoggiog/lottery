@@ -2,8 +2,22 @@
 
 # dependencies
 /node_modules
+/blockchain/node_modules
 /.pnp
 .pnp.js
+
+# vscode
+.vscode
+
+# hardhat
+artifacts
+cache
+deployments
+node_modules
+cache/
+artifacts/
+coverage*
+typechain/
 
 # testing
 /coverage
