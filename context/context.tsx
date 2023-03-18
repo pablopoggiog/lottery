@@ -6,6 +6,7 @@ import { createLotteryContract } from "../utils/lotteryContract";
 
 export interface Context {
   connectWallet: () => void;
+  enterLottery: () => void;
   address: string;
 }
 
@@ -15,6 +16,22 @@ export const AppProvider = ({ children }) => {
   const [address, setAddress] = useState<string>("");
   const [web3, setWeb3] = useState<Web3>(null);
   const [lotteryContract, setLotteryContract] = useState<Contract>(null);
+  const [lotteryPot, setLotteryPot] = useState<number>(0);
+  const [lotteryPlayers, setLotteryPlayers] = useState<string[]>([]);
+  const [lastWinner, setLastWinner] = useState<string>("");
+
+  const enterLottery = async () => {
+    try {
+      await lotteryContract.methods.enter().send({
+        from: address,
+        value: Web3.utils.toWei("0.01", "ether"),
+        gas: 3000000,
+        gasPrice: null
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const connectWallet = async () => {
     if (window.ethereum) {
@@ -39,7 +56,7 @@ export const AppProvider = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider value={{ connectWallet, address }}>
+    <AppContext.Provider value={{ connectWallet, enterLottery, address }}>
       {children}
     </AppContext.Provider>
   );

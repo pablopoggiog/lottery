@@ -1,7 +1,10 @@
-import style from '../styles/PotCard.module.css'
-import truncateEthAddress from 'truncate-eth-address'
+import truncateEthAddress from "truncate-eth-address";
+import style from "../styles/PotCard.module.css";
+import { useAppContext } from "../context/context";
+
 const LotteryCard = () => {
-  // TODO: Get the data needed from context
+  const { address, enterLottery } = useAppContext();
+
   return (
     <div className={style.wrapper}>
       <div className={style.title}>
@@ -16,12 +19,14 @@ const LotteryCard = () => {
       <div className={style.recentWinnerTitle}>🏆Last Winners🏆</div>
       <div className={style.winner}>
         {/* TODO: Dynamically render the last winner */}
-        {truncateEthAddress('0x1234567890123456789012345678901234567890')}
+        {truncateEthAddress(address)}
       </div>
-      {/* TODO: Add onClick functionality to the buttons */}
-      <div className={style.btn}>Enter</div>
+
+      <div className={style.btn} onClick={enterLottery}>
+        Enter
+      </div>
       <div className={style.btn}>Pick Winner!</div>
     </div>
-  )
-}
-export default LotteryCard
+  );
+};
+export default LotteryCard;
