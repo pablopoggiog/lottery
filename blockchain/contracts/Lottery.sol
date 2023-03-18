@@ -25,4 +25,21 @@ contract Lottery {
     function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
+
+    function getLotteryId() public view returns (uint) {
+        return lotteryId;
+    }
+
+    function getRandomNumber() public view returns (uint) {
+        return uint(keccak256(abi.encodePacked(owner, block.timestamp)));
+    }
+
+    function pickWinner() public {
+        require(msg.sender == owner);
+        uint randomPlayerIndex = getRandomNumber() % players.length;
+        address payable winner = players[randomPlayerIndex];
+        winner.transfer(address(this).balance);
+        winners.push(winner);
+        lotteryId++;
+    }
 }
