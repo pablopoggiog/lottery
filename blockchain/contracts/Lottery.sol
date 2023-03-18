@@ -41,5 +41,8 @@ contract Lottery {
         winner.transfer(address(this).balance);
         winners.push(winner);
         lotteryId++;
+
+        // reset players
+        players = new address payable[](0);
     }
 }
