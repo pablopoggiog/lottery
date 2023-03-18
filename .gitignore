@@ -13,11 +13,9 @@
 artifacts
 cache
 deployments
-node_modules
 cache/
-artifacts/
 coverage*
-typechain/
+typechain-types
 
 # testing
 /coverage
