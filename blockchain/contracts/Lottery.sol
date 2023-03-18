@@ -26,23 +26,26 @@ contract Lottery {
         return address(this).balance;
     }
 
-    function getLotteryId() public view returns (uint) {
+    function getLotteryId() public view returns (uint256) {
         return lotteryId;
     }
 
-    function getRandomNumber() public view returns (uint) {
-        return uint(keccak256(abi.encodePacked(owner, block.timestamp)));
+    function getRandomNumber() public view returns (uint256) {
+        return uint256(keccak256(abi.encodePacked(owner, block.timestamp)));
     }
 
     function pickWinner() public {
-        require(msg.sender == owner);
-        uint randomPlayerIndex = getRandomNumber() % players.length;
+        require(msg.sender == owner, "Only owner can trigger picking a winner");
+        uint256 randomPlayerIndex = getRandomNumber() % players.length;
         address payable winner = players[randomPlayerIndex];
         winner.transfer(address(this).balance);
         winners.push(winner);
         lotteryId++;
 
-        // reset players
         players = new address payable[](0);
+    }
+
+    function getWinners() public view returns (address[] memory) {
+        return winners;
     }
 }
