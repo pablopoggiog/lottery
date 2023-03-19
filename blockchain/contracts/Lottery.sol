@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
 
-contract Lottery {
-    address public owner;
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract Lottery is Ownable {
     address payable[] public players;
     address[] public winners;
     uint256 public lotteryId;
 
     constructor() {
-        owner = msg.sender;
         lotteryId = 0;
     }
 
@@ -30,11 +30,10 @@ contract Lottery {
     }
 
     function getRandomNumber() public view returns (uint256) {
-        return uint256(keccak256(abi.encodePacked(owner, block.timestamp)));
+        return uint256(keccak256(abi.encodePacked(owner(), block.timestamp)));
     }
 
-    function pickWinner() public {
-        require(msg.sender == owner, "Only owner can trigger picking a winner");
+    function pickWinner() public onlyOwner {
         uint256 randomPlayerIndex = getRandomNumber() % players.length;
         address payable winner = players[randomPlayerIndex];
         winner.transfer(address(this).balance);
