@@ -2,8 +2,11 @@
 pragma solidity ^0.8.15;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract Lottery is Ownable {
+    using SafeMath for uint256;
+
     address payable[] public players;
     address[] public winners;
     uint256 public lotteryId;
@@ -36,9 +39,10 @@ contract Lottery is Ownable {
     function pickWinner() public onlyOwner {
         uint256 randomPlayerIndex = getRandomNumber() % players.length;
         address payable winner = players[randomPlayerIndex];
-        winner.transfer(address(this).balance);
+        uint256 pot = address(this).balance;
+        winner.transfer(pot);
         winners.push(winner);
-        lotteryId++;
+        lotteryId = lotteryId.add(1);
 
         players = new address payable[](0);
     }
