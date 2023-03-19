@@ -15,9 +15,13 @@ const Table = () => {
         <div className={style.amountTitle}>💲 Amount</div>
       </div>
       <div className={style.rows} ref={parent}>
-        {lotteryPlayers.map((player, index) => (
-          <TableRow key={index} player={player} />
-        ))}
+        {!!lotteryPlayers.length ? (
+          lotteryPlayers.map((player, index) => (
+            <TableRow key={index} player={player} />
+          ))
+        ) : (
+          <div className={style.noPlayers}>No players yet</div>
+        )}
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ const LotteryCard = () => {
       <div className={style.recentWinnerTitle}>🏆Last Winner🏆</div>
 
       <div className={style.winner}>
-        {lastWinner ? truncateEthAddress(lastWinner) : "There's no winner yet"}
+        {lastWinner ? truncateEthAddress(lastWinner) : "No winner yet"}
       </div>
 
       <div className={style.btn} onClick={enterLottery}>
