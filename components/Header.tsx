@@ -9,9 +9,6 @@ const Header = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.title}>Lottery DAPP 💰</div>
-      {/* TODO: Conditionally render connect button if no user is logged in. */}
-      {/* TODO: pass in the address to the userCard */}
-      {/* TODO: pass in the connect Wallet function to the connect Wallet Button. */}
 
       {address ? (
         <UserCard address={address} />
@@ -21,4 +18,5 @@ const Header = () => {
     </div>
   );
 };
+
 export default Header;

@@ -15,6 +15,7 @@ export interface Context {
   enterLottery: () => void;
   address: string;
   lotteryPot: string;
+  lotteryPlayers: string[];
 }
 
 export const AppContext = createContext<Context | null>(null);
@@ -54,6 +55,11 @@ export const AppProvider = ({ children }) => {
       const potInWEI = await lotteryContract.methods.getBalance().call();
       const potInETH = Web3.utils.fromWei(potInWEI, "ether");
       setLotteryPot(potInETH);
+
+      const players: string[] = await lotteryContract.methods
+        .getPlayers()
+        .call();
+      setLotteryPlayers(players);
     }
   }, [lotteryContract]);
 
@@ -78,7 +84,13 @@ export const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ connectWallet, enterLottery, address, lotteryPot }}
+      value={{
+        connectWallet,
+        enterLottery,
+        address,
+        lotteryPot,
+        lotteryPlayers
+      }}
     >
       {children}
     </AppContext.Provider>

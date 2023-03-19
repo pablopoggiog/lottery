@@ -12,15 +12,11 @@ const LotteryCard = () => {
         Lottery <span className={style.textAccent}>#1</span>
       </div>
       <div className={style.pot}>
-        {/* TODO: Dynamically render the lottery pot */}
         Pot 🍯: <span className={style.goldAccent}>{lotteryPot} ETH</span>
       </div>
 
       <div className={style.recentWinnerTitle}>🏆Last Winners🏆</div>
-      <div className={style.winner}>
-        {/* TODO: Dynamically render the last winner */}
-        {truncateEthAddress(address)}
-      </div>
+      <div className={style.winner}>{truncateEthAddress(address)}</div>
 
       <div className={style.btn} onClick={enterLottery}>
         Enter
@@ -29,4 +25,5 @@ const LotteryCard = () => {
     </div>
   );
 };
+
 export default LotteryCard;

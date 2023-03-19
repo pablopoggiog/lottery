@@ -7,10 +7,8 @@ const Home = () => {
   return (
     <div className={style.wrapper}>
       <Header />
-
       <LotteryCard />
-
-      {/* TODO: Players Table */}
+      <Table />
     </div>
   );
 };
