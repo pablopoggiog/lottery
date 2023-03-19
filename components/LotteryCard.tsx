@@ -3,7 +3,7 @@ import style from "../styles/PotCard.module.css";
 import { useAppContext } from "../context/context";
 
 const LotteryCard = () => {
-  const { address, enterLottery } = useAppContext();
+  const { address, enterLottery, lotteryPot } = useAppContext();
 
   return (
     <div className={style.wrapper}>
@@ -13,7 +13,7 @@ const LotteryCard = () => {
       </div>
       <div className={style.pot}>
         {/* TODO: Dynamically render the lottery pot */}
-        Pot 🍯: <span className={style.goldAccent}>10 ETH</span>
+        Pot 🍯: <span className={style.goldAccent}>{lotteryPot} ETH</span>
       </div>
 
       <div className={style.recentWinnerTitle}>🏆Last Winners🏆</div>

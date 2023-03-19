@@ -1,4 +1,10 @@
-import { createContext, useState, useContext } from "react";
+import {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  useCallback
+} from "react";
 import Web3 from "web3";
 import { provider } from "web3-core";
 import { Contract } from "web3-eth-contract";
@@ -8,6 +14,7 @@ export interface Context {
   connectWallet: () => void;
   enterLottery: () => void;
   address: string;
+  lotteryPot: string;
 }
 
 export const AppContext = createContext<Context | null>(null);
@@ -16,22 +23,9 @@ export const AppProvider = ({ children }) => {
   const [address, setAddress] = useState<string>("");
   const [web3, setWeb3] = useState<Web3>(null);
   const [lotteryContract, setLotteryContract] = useState<Contract>(null);
-  const [lotteryPot, setLotteryPot] = useState<number>(0);
+  const [lotteryPot, setLotteryPot] = useState<string>("");
   const [lotteryPlayers, setLotteryPlayers] = useState<string[]>([]);
   const [lastWinner, setLastWinner] = useState<string>("");
-
-  const enterLottery = async () => {
-    try {
-      await lotteryContract.methods.enter().send({
-        from: address,
-        value: Web3.utils.toWei("0.01", "ether"),
-        gas: 3000000,
-        gasPrice: null
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const connectWallet = async () => {
     if (window.ethereum) {
@@ -55,8 +49,37 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const updateLottery = useCallback(async () => {
+    if (lotteryContract) {
+      const potInWEI = await lotteryContract.methods.getBalance().call();
+      const potInETH = Web3.utils.fromWei(potInWEI, "ether");
+      setLotteryPot(potInETH);
+    }
+  }, [lotteryContract]);
+
+  const enterLottery = async () => {
+    try {
+      await lotteryContract.methods.enter().send({
+        from: address,
+        value: Web3.utils.toWei("0.01", "ether"),
+        gas: 3000000,
+        gasPrice: null
+      });
+      console.log("Entered lottery");
+      updateLottery();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    updateLottery();
+  }, [updateLottery]);
+
   return (
-    <AppContext.Provider value={{ connectWallet, enterLottery, address }}>
+    <AppContext.Provider
+      value={{ connectWallet, enterLottery, address, lotteryPot }}
+    >
       {children}
     </AppContext.Provider>
   );
