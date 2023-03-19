@@ -11,6 +11,10 @@ contract Lottery is Ownable {
     address[] public winners;
     uint256 public lotteryId;
 
+    event PlayerEntered(address indexed player, uint256 amount);
+    event WinnerPicked(address indexed winner, uint256 amount);
+    event LotteryReset(uint256 indexed lotteryId);
+
     constructor() {
         lotteryId = 0;
     }
@@ -18,6 +22,7 @@ contract Lottery is Ownable {
     function enter() public payable {
         require(msg.value >= 0.01 ether, "Min amount is 0.01 ether");
         players.push(payable(msg.sender));
+        emit PlayerEntered(msg.sender, msg.value);
     }
 
     function getPlayers() public view returns (address payable[] memory) {
@@ -43,6 +48,9 @@ contract Lottery is Ownable {
         winner.transfer(pot);
         winners.push(winner);
         lotteryId = lotteryId.add(1);
+
+        emit WinnerPicked(winner, pot);
+        emit LotteryReset(lotteryId);
 
         players = new address payable[](0);
     }
