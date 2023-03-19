@@ -6,7 +6,6 @@ import {
   useCallback
 } from "react";
 import Web3 from "web3";
-import { provider } from "web3-core";
 import { Contract } from "web3-eth-contract";
 import { createLotteryContract } from "../utils/lotteryContract";
 
@@ -25,7 +24,6 @@ export const AppContext = createContext<Context | null>(null);
 
 export const AppProvider = ({ children }) => {
   const [address, setAddress] = useState<string>("");
-  const [web3, setWeb3] = useState<Web3>(null);
   const [lotteryContract, setLotteryContract] = useState<Contract>(null);
   const [lotteryPot, setLotteryPot] = useState<string>("");
   const [lotteryPlayers, setLotteryPlayers] = useState<string[]>([]);
@@ -37,7 +35,6 @@ export const AppProvider = ({ children }) => {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
         const web3 = new Web3(window.ethereum);
-        setWeb3(web3);
 
         const accounts = await web3.eth.getAccounts();
         setAddress(accounts[0]);
