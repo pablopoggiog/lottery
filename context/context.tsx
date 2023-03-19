@@ -18,6 +18,7 @@ export interface Context {
   lotteryPot: string;
   lotteryPlayers: string[];
   lastWinner: string;
+  lotteryId: number;
 }
 
 export const AppContext = createContext<Context | null>(null);
@@ -29,6 +30,7 @@ export const AppProvider = ({ children }) => {
   const [lotteryPot, setLotteryPot] = useState<string>("");
   const [lotteryPlayers, setLotteryPlayers] = useState<string[]>([]);
   const [lastWinner, setLastWinner] = useState<string>("");
+  const [lotteryId, setLotteryId] = useState<number>();
 
   const connectWallet = async () => {
     if (window.ethereum) {
@@ -68,6 +70,11 @@ export const AppProvider = ({ children }) => {
         .call();
       const lastWinner = winners[winners.length - 1];
       setLastWinner(lastWinner);
+
+      const lotteryId: number = await lotteryContract.methods
+        .getLotteryId()
+        .call();
+      setLotteryId(lotteryId);
     }
   }, [lotteryContract]);
 
@@ -113,7 +120,8 @@ export const AppProvider = ({ children }) => {
         address,
         lotteryPot,
         lotteryPlayers,
-        lastWinner
+        lastWinner,
+        lotteryId
       }}
     >
       {children}
