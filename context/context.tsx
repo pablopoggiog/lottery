@@ -13,9 +13,11 @@ import { createLotteryContract } from "../utils/lotteryContract";
 export interface Context {
   connectWallet: () => void;
   enterLottery: () => void;
+  pickWinner: () => void;
   address: string;
   lotteryPot: string;
   lotteryPlayers: string[];
+  lastWinner: string;
 }
 
 export const AppContext = createContext<Context | null>(null);
@@ -60,6 +62,12 @@ export const AppProvider = ({ children }) => {
         .getPlayers()
         .call();
       setLotteryPlayers(players);
+
+      const winners: string[] = await lotteryContract.methods
+        .getWinners()
+        .call();
+      const lastWinner = winners[winners.length - 1];
+      setLastWinner(lastWinner);
     }
   }, [lotteryContract]);
 
@@ -78,6 +86,20 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const pickWinner = async () => {
+    try {
+      await lotteryContract.methods.pickWinner().send({
+        from: address,
+        gas: 3000000,
+        gasPrice: null
+      });
+      console.log("Picked winner");
+      updateLottery();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     updateLottery();
   }, [updateLottery]);
@@ -87,9 +109,11 @@ export const AppProvider = ({ children }) => {
       value={{
         connectWallet,
         enterLottery,
+        pickWinner,
         address,
         lotteryPot,
-        lotteryPlayers
+        lotteryPlayers,
+        lastWinner
       }}
     >
       {children}

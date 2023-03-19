@@ -4,27 +4,29 @@ import style from "../styles/PotCard.module.css";
 import { useAppContext } from "../context/context";
 
 const LotteryCard = () => {
-  const { address, enterLottery, lotteryPot } = useAppContext();
+  const { enterLottery, pickWinner, lotteryPot, lastWinner } = useAppContext();
 
   const [parent] = useAutoAnimate();
 
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} ref={parent}>
       <div className={style.title}>
         {/* TODO: Dynamically render the lotteryID */}
         Lottery <span className={style.textAccent}>#1</span>
       </div>
-      <div className={style.pot} ref={parent}>
+      <div className={style.pot}>
         Pot 🍯: <span className={style.goldAccent}>{lotteryPot} ETH</span>
       </div>
 
-      <div className={style.recentWinnerTitle}>🏆Last Winners🏆</div>
-      <div className={style.winner}>{truncateEthAddress(address)}</div>
+      <div className={style.recentWinnerTitle}>🏆Last Winner🏆</div>
+      <div className={style.winner}>{truncateEthAddress(lastWinner)}</div>
 
       <div className={style.btn} onClick={enterLottery}>
         Enter
       </div>
-      <div className={style.btn}>Pick Winner!</div>
+      <div className={style.btn} onClick={pickWinner}>
+        Pick Winner!
+      </div>
     </div>
   );
 };
