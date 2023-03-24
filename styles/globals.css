@@ -7,7 +7,8 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100vh;
   width: 100vw;
-  background-color: #1e2128;
+  background-color: #ffd6ba;
+  background-image: linear-gradient(0deg, #ffd6ba 0%, #97D9E1 50%);  
   font-family: 'Roboto', sans-serif;
 }
 

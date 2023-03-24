@@ -1,12 +1,13 @@
 .wrapper {
-  background-color: #242833;
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #555b6e 0%, #89b0ae 100%);
   min-height: 200px;
   width: 50%;
   margin: 0 auto;
   border-radius: 2rem;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 20px 0px #ffd6baca;
+  -webkit-box-shadow: 10px 10px 20px 0px #ffd6baca;
+  -moz-box-shadow: 10px 10px 20px 0px #ffd6baca;
   display: flex;
   padding: 20px;
   flex-direction: column;
@@ -16,7 +17,7 @@
 .title {
   font-size: 2rem;
   font-weight: bolder;
-  color: #fff;
+  color: #f0f4fa;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -24,7 +25,7 @@
 .pot {
   font-size: 1.5rem;
   font-weight: bolder;
-  color: #fff;
+  color: #f0f4fa;
   text-align: center;
   flex: 1;
 }
@@ -32,21 +33,17 @@
 .potAmount {
   font-size: 1.5rem;
   font-weight: bolder;
-  color: #fff;
+  color: #ffd6baca;
   text-align: center;
 }
 
-.goldAccent {
-  color: #ffdf3d;
-}
-
 .btn {
-  background-color: #1e2128;
+  background-color: #3e4754;
   width: 50%;
   display: flex;
   justify-content: center;
   place-self: center;
-  color: #f45358;
+  color: #f0f4fa;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -55,13 +52,13 @@
   border-radius: 1.5rem;
   font-weight: bolder;
   font-size: 1.5rem;
-  border: 1px solid #f45358;
+  border: 1px solid #ffd6baca;
 }
 
 .recentWinnerTitle {
   font-size: 1.5rem;
   font-weight: bolder;
-  color: #fff;
+  color: #f0f4fa;
   text-align: center;
   margin-top: 20px;
 }
@@ -69,13 +66,12 @@
 .winner {
   font-size: 1.5rem;
   font-weight: bolder;
-  color: #fff;
+  color: #ffd6baca;
   text-align: center;
-  color: #f45358;
 }
 
 .textAccent {
-  color: #f45358;
+  color: #ffd6baca;
 }
 
 .drawWinnerBtn {
@@ -85,11 +81,11 @@
   justify-content: center;
   margin: 0 auto;
   width: 20%;
-  border: 1px solid #f2505e;
+  border: 1px solid #ffd6baca;
   border-radius: 1.2rem;
   padding: 10px 20px;
   font-size: 1.3rem;
   font-weight: bolder;
   cursor: pointer;
-  color: #f2505e;
+  color: #f0f4fa;
 }

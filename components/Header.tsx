@@ -8,7 +8,7 @@ const Header = () => {
 
   return (
     <div className={style.wrapper}>
-      <div className={style.title}>Lottery DAPP 💰</div>
+      <div className={style.title}>Smart Lottery</div>
 
       {address ? (
         <UserCard address={address} />

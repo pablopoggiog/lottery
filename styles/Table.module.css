@@ -11,15 +11,16 @@
   flex-direction: column;
   background-color: #212530;
   background-color: 100;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 20px 0px #ffd6baa7;
+  -webkit-box-shadow: 10px 10px 20px 0px #ffd6baa7;
+  -moz-box-shadow: 10px 10px 20px 0px #ffd6baa7;
 }
 
 .tableHeader {
   width: 100%;
   height: 100px;
-  background-color: #383c47;
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #555b6e 0%, #89b0ae 100%);
   color: #f1f1f3;
   display: flex;
   align-items: flex-end;
@@ -41,19 +42,19 @@
 .amountTitle {
   font-size: 1.3rem;
   font-weight: bolder;
-  color: #f2505e;
+  color: #f0f4fa;
 }
 
 .addressTitle {
   font-size: 1.3rem;
   font-weight: bolder;
-  color: #f2505e;
+  color: #f0f4fa;
 }
 
 .noPlayers {
   font-size: 1.3rem;
   font-weight: bolder;
-  color: #f2505e;
+  color: #f0f4fa;
   display: flex;
   align-items: center;
   justify-content: center;

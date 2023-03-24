@@ -1,5 +1,7 @@
 .wrapper {
-  background-color: #383c47;
+
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #555b6e 0%, #89b0ae 100%);
   width: 100%;
   min-height: 50px;
   color: #f1f1f3;
@@ -10,7 +12,7 @@
   position: sticky;
   top: 0;
   left: 0;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #ffd6ba;
 }
 
 .title {
@@ -18,7 +20,7 @@
   font-size: 2rem;
   cursor: pointer;
   font-weight: bolder;
-  color: #f2505e;
+  color: #ffd6bab0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,6 +44,6 @@
 }
 
 .accentColor {
-  color: #f2505e;
+  color: #ffd6ba;
   font-weight: bold;
 }

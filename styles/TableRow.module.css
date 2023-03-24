@@ -1,7 +1,7 @@
 .wrapper {
   width: 100%;
   height: 50px;
-  background-color: #1e222d;
+  background-color: #3e4754;
   border-top: 1px solid #31353e;
   border-bottom: 1px solid #31353e;
   display: flex;
@@ -15,7 +15,7 @@
 }
 
 .address {
-  color: #fff;
+  color: #ffd6ba;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.2;
@@ -23,7 +23,7 @@
 }
 
 .ethAmmount {
-  color: #fff;
+  color: #ffd6ba;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.2;
@@ -31,5 +31,5 @@
 }
 
 .goldAccent {
-  color: #ffde3c;
+  color: #ffd6ba;
 }

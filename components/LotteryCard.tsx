@@ -15,10 +15,10 @@ const LotteryCard = () => {
         Lottery <span className={style.textAccent}>#{lotteryId}</span>
       </div>
       <div className={style.pot}>
-        Pot 🍯: <span className={style.goldAccent}>{lotteryPot} ETH</span>
+        Pot 🍯: <span className={style.potAmount}>{lotteryPot} ETH</span>
       </div>
 
-      <div className={style.recentWinnerTitle}>🏆Last Winner🏆</div>
+      <div className={style.recentWinnerTitle}>🏆 Last Winner 🏆</div>
 
       <div className={style.winner}>
         {lastWinner ? truncateEthAddress(lastWinner) : "No winner yet"}
