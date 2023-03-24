@@ -34,6 +34,16 @@ export const AppProvider = ({ children }) => {
     if (window.ethereum) {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
+        fetchConnectedWallet();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  const fetchConnectedWallet = useCallback(async () => {
+    if (window.ethereum) {
+      try {
         const web3 = new Web3(window.ethereum);
 
         const accounts = await web3.eth.getAccounts();
@@ -49,7 +59,7 @@ export const AppProvider = ({ children }) => {
         console.error(error);
       }
     }
-  };
+  }, []);
 
   const updateLottery = useCallback(async () => {
     if (lotteryContract) {
@@ -107,6 +117,10 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     updateLottery();
   }, [updateLottery]);
+
+  useEffect(() => {
+    fetchConnectedWallet();
+  }, [fetchConnectedWallet]);
 
   return (
     <AppContext.Provider
