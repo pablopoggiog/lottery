@@ -118,9 +118,7 @@ export const AppProvider = ({ children }) => {
             toBlock: "latest"
           });
           if (events.length > 0) {
-            const winner = events[events.length - 1].returnValues.winner;
-            console.log("Was picked a new winner: ", winner);
-            setLastWinner(winner);
+            updateLottery();
             clearInterval(interval);
           }
         }, 1000);
