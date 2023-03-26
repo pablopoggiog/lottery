@@ -110,7 +110,23 @@ export const AppProvider = ({ children }) => {
         gasPrice: null
       });
       console.log("Started the process to pick a winner");
-      setTimeout(updateLottery, 15000);
+
+      const pollWinner = () => {
+        const interval = setInterval(async () => {
+          const events = await lotteryContract.getPastEvents("WinnerPicked", {
+            fromBlock: "latest",
+            toBlock: "latest"
+          });
+          if (events.length > 0) {
+            const winner = events[events.length - 1].returnValues.winner;
+            console.log("Was picked a new winner: ", winner);
+            setLastWinner(winner);
+            clearInterval(interval);
+          }
+        }, 1000);
+      };
+
+      pollWinner();
     } catch (error) {
       console.error(error);
     }
@@ -124,6 +140,7 @@ export const AppProvider = ({ children }) => {
         gasPrice: null
       });
       console.log("withdrew pot");
+      updateLottery();
     } catch (error) {
       console.error(error);
     }
