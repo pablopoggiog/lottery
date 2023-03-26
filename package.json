@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia"
+    "deploy:sepolia": "cd blockchain && npx hardhat run scripts/deploy.ts --network sepolia && cd .."
   },
   "dependencies": {
+    "@chainlink/contracts": "^0.6.1",
     "@formkit/auto-animate": "^1.0.0-beta.6",
     "@openzeppelin/contracts": "^4.8.2",
     "dotenv": "^16.0.3",

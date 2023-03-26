@@ -2,3 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Lottery } from "./Lottery";
+export type { VRFv2DirectFundingConsumer } from "./VRFv2DirectFundingConsumer";

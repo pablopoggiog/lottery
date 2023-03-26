@@ -2,3 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export { Lottery__factory } from "./Lottery__factory";
+export { VRFv2DirectFundingConsumer__factory } from "./VRFv2DirectFundingConsumer__factory";

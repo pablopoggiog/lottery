@@ -4,8 +4,14 @@ import style from "../styles/PotCard.module.css";
 import { useAppContext } from "../context/context";
 
 const LotteryCard = () => {
-  const { enterLottery, pickWinner, lotteryPot, lastWinner, lotteryId } =
-    useAppContext();
+  const {
+    enterLottery,
+    pickWinner,
+    withdrawPot,
+    lotteryPot,
+    lastWinner,
+    lotteryId
+  } = useAppContext();
 
   const [parent] = useAutoAnimate();
 
@@ -18,7 +24,7 @@ const LotteryCard = () => {
         Pot 🍯: <span className={style.potAmount}>{lotteryPot} ETH</span>
       </div>
 
-      <div className={style.recentWinnerTitle}>🏆 Last Winner 🏆</div>
+      <div className={style.recentWinnerTitle}>Last Winner</div>
 
       <div className={style.winner}>
         {lastWinner ? truncateEthAddress(lastWinner) : "No winner yet"}
@@ -29,6 +35,9 @@ const LotteryCard = () => {
       </div>
       <div className={style.btn} onClick={pickWinner}>
         Pick Winner!
+      </div>
+      <div className={style.btn} onClick={withdrawPot}>
+        Withdraw Pot
       </div>
     </div>
   );

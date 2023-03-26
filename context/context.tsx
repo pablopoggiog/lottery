@@ -13,6 +13,7 @@ export interface Context {
   connectWallet: () => void;
   enterLottery: () => void;
   pickWinner: () => void;
+  withdrawPot: () => void;
   address: string;
   lotteryPot: string;
   lotteryPlayers: string[];
@@ -75,6 +76,7 @@ export const AppProvider = ({ children }) => {
       const winners: string[] = await lotteryContract.methods
         .getWinners()
         .call();
+      console.log("winners: ", winners);
       const lastWinner = winners[winners.length - 1];
       setLastWinner(lastWinner);
 
@@ -102,13 +104,26 @@ export const AppProvider = ({ children }) => {
 
   const pickWinner = async () => {
     try {
-      await lotteryContract.methods.pickWinner().send({
+      await lotteryContract.methods.startPickingWinner().send({
         from: address,
         gas: 3000000,
         gasPrice: null
       });
-      console.log("Picked winner");
-      updateLottery();
+      console.log("Started the process to pick a winner");
+      setTimeout(updateLottery, 15000);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const withdrawPot = async () => {
+    try {
+      await lotteryContract.methods.withdrawPot().send({
+        from: address,
+        gas: 3000000,
+        gasPrice: null
+      });
+      console.log("withdrew pot");
     } catch (error) {
       console.error(error);
     }
@@ -128,6 +143,7 @@ export const AppProvider = ({ children }) => {
         connectWallet,
         enterLottery,
         pickWinner,
+        withdrawPot,
         address,
         lotteryPot,
         lotteryPlayers,

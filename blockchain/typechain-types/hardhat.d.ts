@@ -13,6 +13,30 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
+      name: "ConfirmedOwner",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ConfirmedOwner__factory>;
+    getContractFactory(
+      name: "ConfirmedOwnerWithProposal",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ConfirmedOwnerWithProposal__factory>;
+    getContractFactory(
+      name: "LinkTokenInterface",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.LinkTokenInterface__factory>;
+    getContractFactory(
+      name: "OwnableInterface",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.OwnableInterface__factory>;
+    getContractFactory(
+      name: "VRFV2WrapperInterface",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.VRFV2WrapperInterface__factory>;
+    getContractFactory(
+      name: "VRFV2WrapperConsumerBase",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.VRFV2WrapperConsumerBase__factory>;
+    getContractFactory(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Ownable__factory>;
@@ -20,7 +44,41 @@ declare module "hardhat/types/runtime" {
       name: "Lottery",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Lottery__factory>;
+    getContractFactory(
+      name: "VRFv2DirectFundingConsumer",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.VRFv2DirectFundingConsumer__factory>;
 
+    getContractAt(
+      name: "ConfirmedOwner",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ConfirmedOwner>;
+    getContractAt(
+      name: "ConfirmedOwnerWithProposal",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
+    getContractAt(
+      name: "LinkTokenInterface",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.LinkTokenInterface>;
+    getContractAt(
+      name: "OwnableInterface",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.OwnableInterface>;
+    getContractAt(
+      name: "VRFV2WrapperInterface",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.VRFV2WrapperInterface>;
+    getContractAt(
+      name: "VRFV2WrapperConsumerBase",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.VRFV2WrapperConsumerBase>;
     getContractAt(
       name: "Ownable",
       address: string,
@@ -31,6 +89,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Lottery>;
+    getContractAt(
+      name: "VRFv2DirectFundingConsumer",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.VRFv2DirectFundingConsumer>;
 
     // default types
     getContractFactory(

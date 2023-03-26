@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "./VRFv2DirectFundingConsumer.sol";
 
-contract Lottery is Ownable {
+contract Lottery is ConfirmedOwner, VRFv2DirectFundingConsumer {
     using SafeMath for uint256;
 
     address payable[] public players;
@@ -14,10 +14,10 @@ contract Lottery is Ownable {
     event PlayerEntered(address indexed player, uint256 amount);
     event WinnerPicked(address indexed winner, uint256 amount);
     event LotteryReset(uint256 indexed lotteryId);
-    event Received(address indexed from, uint256 amount);
+    event Received(address, uint);
 
-    constructor() {
-        lotteryId = 0;
+    constructor() VRFv2DirectFundingConsumer() {
+        lotteryId = 1;
     }
 
     function enter() public payable {
@@ -38,12 +38,28 @@ contract Lottery is Ownable {
         return lotteryId;
     }
 
-    function getRandomNumber() public view returns (uint256) {
-        return uint256(keccak256(abi.encodePacked(owner(), block.timestamp)));
+    function startPickingWinner() public onlyOwner {
+        requestRandomWords();
     }
 
-    function pickWinner() public onlyOwner {
-        uint256 randomPlayerIndex = getRandomNumber() % players.length;
+    function fulfillRandomWords(
+        uint256 _requestId,
+        uint256[] memory _randomWords
+    ) internal override {
+        require(s_requests[_requestId].paid > 0, "request not found");
+        s_requests[_requestId].fulfilled = true;
+        s_requests[_requestId].randomWords = _randomWords;
+        emit RequestFulfilled(
+            _requestId,
+            _randomWords,
+            s_requests[_requestId].paid
+        );
+
+        finishPickingWinner(_randomWords[0]);
+    }
+
+    function finishPickingWinner(uint256 _randomNumber) internal {
+        uint256 randomPlayerIndex = _randomNumber % players.length;
         address payable winner = players[randomPlayerIndex];
         uint256 pot = address(this).balance;
         winners.push(winner);

@@ -4,7 +4,7 @@ import style from "../styles/Header.module.css";
 const UserCard = ({ address }) => (
   <div>
     <div className={`${style.welcome} ${style.loginBtn}`}>
-      👋 Welcome,{" "}
+      👋🏻 Welcome,{" "}
       <span className={style.accentColor}>{truncateEthAddress(address)}</span>
     </div>
   </div>
