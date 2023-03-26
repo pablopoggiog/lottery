@@ -14,6 +14,7 @@ contract Lottery is Ownable {
     event PlayerEntered(address indexed player, uint256 amount);
     event WinnerPicked(address indexed winner, uint256 amount);
     event LotteryReset(uint256 indexed lotteryId);
+    event Received(address indexed from, uint256 amount);
 
     constructor() {
         lotteryId = 0;
@@ -63,5 +64,9 @@ contract Lottery is Ownable {
 
     function getWinners() public view returns (address[] memory) {
         return winners;
+    }
+
+    receive() external payable {
+        emit Received(msg.sender, msg.value);
     }
 }
