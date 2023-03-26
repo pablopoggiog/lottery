@@ -15,6 +15,10 @@ cache
 deployments
 cache/
 coverage*
+blockchain/typechain-types/@chainlink
+blockchain/typechain-types/@openzeppelin
+blockchain/typechain-types/factories/@chainlink
+blockchain/typechain-types/factories/@openzeppelin
 
 # testing
 /coverage

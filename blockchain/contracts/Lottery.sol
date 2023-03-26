@@ -10,6 +10,7 @@ contract Lottery is ConfirmedOwner, VRFv2DirectFundingConsumer {
     address payable[] public players;
     address[] public winners;
     uint256 public lotteryId;
+    uint256 public potWidthdrawalEndTime;
 
     event PlayerEntered(address indexed player, uint256 amount);
     event WinnerPicked(address indexed winner, uint256 amount);
@@ -18,10 +19,15 @@ contract Lottery is ConfirmedOwner, VRFv2DirectFundingConsumer {
 
     constructor() VRFv2DirectFundingConsumer() {
         lotteryId = 1;
+        potWidthdrawalEndTime = block.timestamp;
     }
 
     function enter() public payable {
-        require(msg.value >= 0.01 ether, "Min amount is 0.01 ether");
+        require(
+            block.timestamp > potWidthdrawalEndTime,
+            "Next lottery not started yet"
+        );
+        require(msg.value >= 0.01 ether, "Ticket costs 0.01 ether");
         players.push(payable(msg.sender));
         emit PlayerEntered(msg.sender, msg.value);
     }
@@ -69,11 +75,16 @@ contract Lottery is ConfirmedOwner, VRFv2DirectFundingConsumer {
         emit LotteryReset(lotteryId);
 
         players = new address payable[](0);
+        potWidthdrawalEndTime = block.timestamp + 10 minutes;
     }
 
     function withdrawPot() public payable {
         address payable lastWinner = payable(winners[winners.length - 1]);
         require(msg.sender == lastWinner, "Only winner can withdraw pot");
+        require(
+            block.timestamp < potWidthdrawalEndTime,
+            "Too late, next lottery started"
+        );
         uint256 pot = address(this).balance;
         payable(lastWinner).transfer(pot);
     }

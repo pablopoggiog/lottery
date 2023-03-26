@@ -1,4 +1,4 @@
 import lotteryABI from "./Lottery.json";
 
-export const CONTRACT_ADDRESS = "0x8e37bFb90674aF1ed103B234A620982a6CF3b76B";
+export const CONTRACT_ADDRESS = "0x8a596e81a9DD6F3A8f0A8430d74C0994485A761c";
 export const CONTRACT_ABI = lotteryABI.abi;
