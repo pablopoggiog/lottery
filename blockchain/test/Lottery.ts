@@ -1,7 +1,7 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { Lottery } from "../typechain-types/Lottery";
+import { Lottery } from "../typechain-types/contracts/Lottery";
 
 const payloadToEnterLottery = { value: ethers.utils.parseEther("0.01") };
 
