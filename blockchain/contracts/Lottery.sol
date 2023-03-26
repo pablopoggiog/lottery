@@ -45,7 +45,6 @@ contract Lottery is Ownable {
         uint256 randomPlayerIndex = getRandomNumber() % players.length;
         address payable winner = players[randomPlayerIndex];
         uint256 pot = address(this).balance;
-        winner.transfer(pot);
         winners.push(winner);
         lotteryId = lotteryId.add(1);
 
@@ -53,6 +52,13 @@ contract Lottery is Ownable {
         emit LotteryReset(lotteryId);
 
         players = new address payable[](0);
+    }
+
+    function withdrawPot() public payable {
+        address payable lastWinner = payable(winners[winners.length - 1]);
+        require(msg.sender == lastWinner, "Only winner can withdraw pot");
+        uint256 pot = address(this).balance;
+        payable(lastWinner).transfer(pot);
     }
 
     function getWinners() public view returns (address[] memory) {
