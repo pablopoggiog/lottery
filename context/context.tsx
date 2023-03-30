@@ -7,6 +7,7 @@ import {
 } from "react";
 import Web3 from "web3";
 import { Contract } from "web3-eth-contract";
+import toast from "react-hot-toast";
 import { createLotteryContract } from "../utils/lotteryContract";
 
 export interface Context {
@@ -64,26 +65,33 @@ export const AppProvider = ({ children }) => {
 
   const updateLottery = useCallback(async () => {
     if (lotteryContract) {
-      const potInWEI = await lotteryContract.methods.getBalance().call();
-      const potInETH = Web3.utils.fromWei(potInWEI, "ether");
-      setLotteryPot(potInETH);
+      try {
+        const potInWEI = await lotteryContract.methods.getBalance().call();
+        const potInETH = Web3.utils.fromWei(potInWEI, "ether");
+        setLotteryPot(potInETH);
 
-      const players: string[] = await lotteryContract.methods
-        .getPlayers()
-        .call();
-      setLotteryPlayers(players);
+        const players: string[] = await lotteryContract.methods
+          .getPlayers()
+          .call();
+        setLotteryPlayers(players);
 
-      const winners: string[] = await lotteryContract.methods
-        .getWinners()
-        .call();
-      console.log("winners: ", winners);
-      const lastWinner = winners[winners.length - 1];
-      setLastWinner(lastWinner);
+        const winners: string[] = await lotteryContract.methods
+          .getWinners()
+          .call();
+        console.log("winners: ", winners);
+        const lastWinner = winners[winners.length - 1];
+        setLastWinner(lastWinner);
 
-      const lotteryId: number = await lotteryContract.methods
-        .getLotteryId()
-        .call();
-      setLotteryId(lotteryId);
+        const lotteryId: number = await lotteryContract.methods
+          .getLotteryId()
+          .call();
+        setLotteryId(lotteryId);
+      } catch (error) {
+        console.error(error);
+        toast.error(
+          "Oops, something went wrong trying to update the lottery data. Please try again."
+        );
+      }
     }
   }, [lotteryContract]);
 
@@ -98,7 +106,14 @@ export const AppProvider = ({ children }) => {
       console.log("Entered lottery");
       updateLottery();
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
+      const signerRejectedSignature = String(error.message).includes(
+        "MetaMask Tx Signature: "
+      );
+      const errorMessage = signerRejectedSignature
+        ? "You rejected the transaction"
+        : "Oops, something went wrong.";
+      toast.error(errorMessage);
     }
   };
 
@@ -127,6 +142,13 @@ export const AppProvider = ({ children }) => {
       pollWinner();
     } catch (error) {
       console.error(error);
+      const signerRejectedSignature = String(error.message).includes(
+        "MetaMask Tx Signature: "
+      );
+      const errorMessage = signerRejectedSignature
+        ? "You rejected the transaction"
+        : "Oops, something went wrong. Make sure you're the lottery owner and try again.";
+      toast.error(errorMessage);
     }
   };
 
@@ -141,6 +163,13 @@ export const AppProvider = ({ children }) => {
       updateLottery();
     } catch (error) {
       console.error(error);
+      const signerRejectedSignature = String(error.message).includes(
+        "MetaMask Tx Signature: "
+      );
+      const errorMessage = signerRejectedSignature
+        ? "You rejected the transaction"
+        : "Oops, something went wrong.";
+      toast.error(errorMessage);
     }
   };
 
